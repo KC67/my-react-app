@@ -8,5 +8,18 @@ export default defineConfig({
     environment: "jsdom",
     globals: true,
     setupFiles: "./src/setupTests.js",
+    coverage: {
+      provider: "istanbul", // or "v8"
+      all: true, // IMPORTANT: include files not tested
+      include: ["src/**/*.jsx", "src/**/*.js", "src/**/*.tsx", "src/**/*.ts"],
+      exclude: [
+        "src/main.jsx",
+        "src/**/__tests__/**",
+        "**/*.test.*",
+        "**/*.spec.*",
+        "src/data",
+        "src/routes",
+      ],
+    },
   },
 });
