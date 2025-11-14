@@ -28,7 +28,6 @@ const TotalRewards = () => {
             })
             .reduce((acc, curr) => {
               // merge total rewards for unique customer
-              console.log(curr.customerName);
               if (!acc[curr.customerName]) {
                 acc[curr.customerName] = { ...curr };
               } else {
