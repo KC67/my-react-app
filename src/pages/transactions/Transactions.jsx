@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 import { useEffect, useState } from "react";
-import useFetchData from "../../api/hooks/useFetchData";
-import LoadingSpinner from "../../components/common/loader/LoadingSpinner";
-import Table from "../../components/common/table/Table";
+import { useFetchTransactionDetailsData } from "../../api/transactionDetailsData";
+import LoadingSpinner from "../../components/loader/LoadingSpinner";
+import Table from "../../components/table/Table";
 import { calculateRewardPoints } from "../../utils/calculateRewardPoints";
 
 const columns = [
@@ -16,9 +16,7 @@ const columns = [
 
 const Transactions = () => {
   const [data, setData] = useState([]);
-  const { data: rewardsData, loading } = useFetchData(
-    "https://6915d19e465a9144626db46a.mockapi.io/api/v1/rewards/allTransactions"
-  );
+  const { data: rewardsData, loading } = useFetchTransactionDetailsData();
 
   useEffect(() => {
     if (rewardsData && rewardsData.length > 0) {

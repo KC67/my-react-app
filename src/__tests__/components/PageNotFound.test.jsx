@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { describe, expect, it, vi } from "vitest";
-import PageNotFound from "../../../components/common/error/PageNotFound";
+import PageNotFound from "../../components/error/PageNotFound";
 
 // PARTIAL MOCK OF REACT-ROUTER-DOM
 vi.mock("react-router-dom", async () => {

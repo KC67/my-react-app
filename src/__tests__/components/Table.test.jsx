@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import Table from "../../../components/common/table/Table";
+import Table from "../../components/table/Table";
 
 describe("Table Component", () => {
   const columns = [

@@ -1,23 +1,25 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import useFetchData from "../../../api/hooks/useFetchData";
-import UserMonthlyRewards from "../../../pages/userMonthlyRewards/UserMonthlyRewards";
-import { calculateMonthwiseRewards } from "../../../utils/calculateMonthwiseRewards";
+import { useFetchTransactionDetailsData } from "../../api/transactionDetailsData";
+import UserMonthlyRewards from "../../pages/userMonthlyRewards/UserMonthlyRewards";
+import { calculateMonthwiseRewards } from "../../utils/calculateMonthwiseRewards";
 
-// mock custom hook
-vi.mock("../../../api/hooks/useFetchData");
+// Mock dependencies
+vi.mock("../../api/transactionDetailsData", () => ({
+  useFetchTransactionDetailsData: vi.fn(),
+}));
 
 // mock util function
-vi.mock("../../../utils/calculateMonthwiseRewards", () => ({
+vi.mock("../../utils/calculateMonthwiseRewards", () => ({
   calculateMonthwiseRewards: vi.fn(),
 }));
 
 // mock child components
-vi.mock("../../../components/common/loader/LoadingSpinner", () => ({
+vi.mock("../../components/loader/LoadingSpinner", () => ({
   default: () => <div data-testid="loader">Loading...</div>,
 }));
 
-vi.mock("../../../components/common/table/Table", () => ({
+vi.mock("../../components/table/Table", () => ({
   default: ({ columns, data }) => (
     <table data-testid="data-table">
       <thead>
@@ -42,7 +44,7 @@ vi.mock("../../../components/common/table/Table", () => ({
 
 describe("UserMonthlyRewards Component", () => {
   it("shows loading spinner when loading=true", () => {
-    useFetchData.mockReturnValue({
+    useFetchTransactionDetailsData.mockReturnValue({
       data: [],
       loading: true,
     });
@@ -68,7 +70,7 @@ describe("UserMonthlyRewards Component", () => {
       },
     ];
 
-    useFetchData.mockReturnValue({
+    useFetchTransactionDetailsData.mockReturnValue({
       data: fakeApiData,
       loading: false,
     });

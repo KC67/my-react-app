@@ -1,15 +1,19 @@
 import { render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import TotalRewards from "../../../pages/totalRewards/TotalRewards";
+import { useFetchTransactionDetailsData } from "../../api/transactionDetailsData";
+import TotalRewards from "../../pages/totalRewards/TotalRewards";
+import { calculateRewardPoints } from "../../utils/calculateRewardPoints";
 
 // Mock dependencies
-vi.mock("../../../api/hooks/useFetchData");
-vi.mock("../../../utils/calculateRewardPoints", () => ({
+vi.mock("../../api/transactionDetailsData", () => ({
+  useFetchTransactionDetailsData: vi.fn(),
+}));
+vi.mock("../../utils/calculateRewardPoints", () => ({
   calculateRewardPoints: vi.fn(),
 }));
 
 // Mock Table so we can inspect its props easily
-vi.mock("../../../components/common/table/Table", () => ({
+vi.mock("../../components/table/Table", () => ({
   default: ({ columns, data }) => (
     <div
       data-testid="table"
@@ -20,12 +24,9 @@ vi.mock("../../../components/common/table/Table", () => ({
 }));
 
 // Mock Loader
-vi.mock("../../../components/common/loader/LoadingSpinner", () => ({
+vi.mock("../../components/loader/LoadingSpinner", () => ({
   default: () => <div data-testid="loader">Loading...</div>,
 }));
-
-import useFetchData from "../../../api/hooks/useFetchData";
-import { calculateRewardPoints } from "../../../utils/calculateRewardPoints";
 
 describe("TotalRewards Component", () => {
   beforeEach(() => {
@@ -33,7 +34,10 @@ describe("TotalRewards Component", () => {
   });
 
   it("renders heading", () => {
-    useFetchData.mockReturnValue({ loading: false, data: [] });
+    useFetchTransactionDetailsData.mockReturnValue({
+      loading: false,
+      data: [],
+    });
 
     render(<TotalRewards />);
 
@@ -41,7 +45,7 @@ describe("TotalRewards Component", () => {
   });
 
   it("shows loader when loading = true", () => {
-    useFetchData.mockReturnValue({ loading: true, data: [] });
+    useFetchTransactionDetailsData.mockReturnValue({ loading: true, data: [] });
 
     render(<TotalRewards />);
 
@@ -62,7 +66,7 @@ describe("TotalRewards Component", () => {
       .mockReturnValueOnce(30) // Bob 80
       .mockReturnValueOnce(10); // Alice 60
 
-    useFetchData.mockReturnValue({
+    useFetchTransactionDetailsData.mockReturnValue({
       loading: false,
       data: mockApiData,
     });
@@ -79,7 +83,10 @@ describe("TotalRewards Component", () => {
   });
 
   it("passes correct columns to Table", () => {
-    useFetchData.mockReturnValue({ loading: false, data: [] });
+    useFetchTransactionDetailsData.mockReturnValue({
+      loading: false,
+      data: [],
+    });
 
     render(<TotalRewards />);
 

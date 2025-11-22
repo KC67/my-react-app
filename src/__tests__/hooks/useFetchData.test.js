@@ -1,7 +1,7 @@
 import { renderHook, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import useFetchData from "../../../api/hooks/useFetchData";
+import useFetchData from "../../hooks/useFetchData";
 
 // Mock useNavigate
 const mockNavigate = vi.fn();

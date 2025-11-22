@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import PageNotFound from "../components/common/error/PageNotFound";
+import PageNotFound from "../components/error/PageNotFound";
 import Layout from "../pages/layout/Layout";
 import TotalRewards from "../pages/totalRewards/TotalRewards";
 import Transactions from "../pages/transactions/Transactions";

@@ -1,17 +1,21 @@
 import { render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import Transactions from "../../../pages/transactions/Transactions";
+import { useFetchTransactionDetailsData } from "../../api/transactionDetailsData";
+import Transactions from "../../pages/transactions/Transactions";
+import { calculateRewardPoints } from "../../utils/calculateRewardPoints";
 
-// 1. Mock useFetchData hook
-vi.mock("../../../api/hooks/useFetchData");
+// 1. Mock dependencies
+vi.mock("../../api/transactionDetailsData", () => ({
+  useFetchTransactionDetailsData: vi.fn(),
+}));
 
 // 2. Mock calculateRewardPoints
-vi.mock("../../../utils/calculateRewardPoints", () => ({
+vi.mock("../../utils/calculateRewardPoints", () => ({
   calculateRewardPoints: vi.fn(),
 }));
 
 // 3. Mock Table (so we can inspect props easily)
-vi.mock("../../../components/common/table/Table", () => ({
+vi.mock("../../components/table/Table", () => ({
   __esModule: true,
   default: ({ columns, data }) => (
     <div
@@ -23,13 +27,10 @@ vi.mock("../../../components/common/table/Table", () => ({
 }));
 
 // 4. Mock Loader
-vi.mock("../../../components/common/loader/LoadingSpinner", () => ({
+vi.mock("../../components/loader/LoadingSpinner", () => ({
   __esModule: true,
   default: () => <div data-testid="loader">Loading...</div>,
 }));
-
-import useFetchData from "../../../api/hooks/useFetchData";
-import { calculateRewardPoints } from "../../../utils/calculateRewardPoints";
 
 describe("Transactions Component", () => {
   beforeEach(() => {
@@ -37,7 +38,10 @@ describe("Transactions Component", () => {
   });
 
   it("renders heading", () => {
-    useFetchData.mockReturnValue({ loading: false, data: [] });
+    useFetchTransactionDetailsData.mockReturnValue({
+      loading: false,
+      data: [],
+    });
 
     render(<Transactions />);
 
@@ -45,7 +49,7 @@ describe("Transactions Component", () => {
   });
 
   it("shows loader when loading = true", () => {
-    useFetchData.mockReturnValue({ loading: true, data: [] });
+    useFetchTransactionDetailsData.mockReturnValue({ loading: true, data: [] });
 
     render(<Transactions />);
 
@@ -74,7 +78,7 @@ describe("Transactions Component", () => {
     // Mock reward points
     calculateRewardPoints.mockReturnValueOnce(90).mockReturnValueOnce(30);
 
-    useFetchData.mockReturnValue({
+    useFetchTransactionDetailsData.mockReturnValue({
       loading: false,
       data: mockApiData,
     });
@@ -105,7 +109,10 @@ describe("Transactions Component", () => {
   });
 
   it("passes correct columns to Table", () => {
-    useFetchData.mockReturnValue({ loading: false, data: [] });
+    useFetchTransactionDetailsData.mockReturnValue({
+      loading: false,
+      data: [],
+    });
 
     render(<Transactions />);
 
