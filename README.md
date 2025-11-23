@@ -12,7 +12,7 @@ This project demonstrates **React functional components**, **custom hooks**, **R
 - **Transactions:** Shows all transactions with reward points calculation.
 - **404 Page:** Friendly page when route not found.
 - **Custom Hooks:** `useFetchData` for API calls with loading and error handling.
-- **Utility Functions:** `calculateRewardPoints`, `calculateMonthwiseRewards`.
+- **Utility Functions:** `calculateRewardPoints`, `calculateMonthwiseRewards`, `customLogger`.
 - **Unit Testing:** Full coverage for components, hooks, and utilities using **Vitest** and **React Testing Library**.
 
 ---
@@ -44,10 +44,10 @@ yarn test
 # generate coverage report
 npm run coverage
 
-Demo
+# Demo
 
-https://github.com/user-attachments/assets/1d888235-3267-4d2a-b3fa-b54b9bf03de6
+https://github.com/user-attachments/assets/44f05a5c-fb8e-4ea3-a61c-884fb7b444c2
 
-Unittest Coverage Report
+# Unittest Coverage Report
 
-![](app_unittest_coverage_report.JPG)
+![Image](https://github.com/user-attachments/assets/df0578ad-a9e3-418a-821d-b643f515ec62)
