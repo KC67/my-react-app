@@ -100,4 +100,36 @@ describe("calculateMonthwiseRewards", () => {
     const result = calculateMonthwiseRewards([]);
     expect(result).toEqual([]);
   });
+
+  it("returns empty array if input data is invalid", () => {
+    const result = calculateMonthwiseRewards("name");
+    expect(result).toEqual([]);
+  });
+
+  it("returns empty array if all required data is missing", () => {
+    const mockData = [
+      { name: "John", date: "2025-01-10", price: 50 },
+      { customerId: 2, date: "2025-01-15", price: 60 },
+      { customerId: 1, name: "John", date: "20250205", price: 30 },
+    ];
+    const result = calculateMonthwiseRewards(mockData);
+    expect(result).toEqual([]);
+  });
+
+  it("returns rewards point as 0 if price is not a number", () => {
+    const mockData = [
+      { customerId: 1, name: "John", date: "2025-01-10", price: "50" },
+    ];
+    const result = calculateMonthwiseRewards(mockData);
+    expect(result).toEqual([
+      {
+        customerId: 1,
+        key: "John-Jan-2025",
+        month: "Jan",
+        name: "John",
+        rewardPoints: 0,
+        year: 2025,
+      },
+    ]);
+  });
 });
